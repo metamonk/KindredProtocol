@@ -32,7 +32,7 @@ export interface CircleData {
 const initialCircleData = {
   agreeToTerms: false,
   name: "",
-  payPeriod: "MONTHLY",
+  payPeriod: "LUDICROUS",
   currency: "usd",
   contributionAmount: null,
   inflationMode: false,
@@ -40,6 +40,9 @@ const initialCircleData = {
   yieldPercentage: 0,
   invited: [],
 }
+
+// compound address mumbai
+const compoundAddress = "0xF09F0369aB0a875254fB565E52226c88f10Bc839";
 
 export interface InputChange {
   name: string;
@@ -95,8 +98,11 @@ export default function CreateCircle() {
       setStep((prevStep) => prevStep + 1);
     } else if (step === MAX_STEP - 1) {
       try {
+        /****************************************************************/
+        /* At the final step, we can submit the form data to the server */
+        /****************************************************************/
         setSubmissionStatus('loading');
-        await handleSubmitCreateCircleData(); // make sure this function is async and awaits the API call
+        await handleSubmitCreateCircleData(); 
         setSubmissionStatus('succeeded');
         setStep(MAX_STEP); // move to the last step, the success page
       } catch (error) {
